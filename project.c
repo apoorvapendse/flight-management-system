@@ -18,6 +18,7 @@ struct Flight{
     struct Booker* passengers;
     struct Flight* next;
     int priority;
+    int id;
 };
 struct Flight* flightHead=NULL;
 int totalFlights = 0;
@@ -37,12 +38,17 @@ void printDetails(struct Flight *f)
 }
 
 void printFlights(){
-    struct Flight* temp = flightHead;
+     struct Flight* temp = flightHead;
     while(temp!=NULL)
     {
         printf("Flight Priority %d\n",temp->priority);
-        printf("Starting Location %s\n",temp->startLocation);
-        printf("End Location %s\n",temp->endLocation);
+        printf("Starting Location: %s\n",temp->startLocation);
+        printf("End Location: %s\n",temp->endLocation);
+        printf("Arrival Time: %s\n", temp->arrivalTime);
+        printf("Departure Time: %s\n", temp->departureTime);
+        printf("Seat Cost: %f\n", temp->seatCost);
+        printf("Total Seat Count: %d\n", temp->totalSeats);
+        printf("unique id: %d\n", temp->id);
 
         temp = temp->next;
     }
@@ -64,6 +70,8 @@ void createFlight(){
     scanf("%f",&tempFlight->seatCost);
     printf("\nTotal Seat Count:");
     scanf("%d",&tempFlight->totalSeats);
+    printf("\nUnique ID:");
+    scanf("%d",&tempFlight->id);
 
     if(flightHead==NULL)//means no flights other than this
     {   
@@ -110,42 +118,79 @@ void createFlight(){
 
 }
 
+void deleteFlights(int uniqueID){
+    struct Flight* tempHead = flightHead;
+    if(tempHead==NULL){
+        printf("Cannot delete, no flights are scheduled!\n");
+        return;
+    }
+    if(tempHead->id==uniqueID)
+    {
+        struct Flight* del = tempHead;
+        tempHead=tempHead->next;
+        flightHead=tempHead;
+        free(del);
+        return;
+    }
+
+    //this will execute if list is not empty and head is not the flight to be deleted
+    while(tempHead->next!=NULL && tempHead->next->id!=uniqueID){
+        tempHead=tempHead->next;
+    }
+    
+    //if temphead doesn't point to null we will delete the node just after tempHead
+    if(tempHead->next!=NULL){
+        struct Flight *del = tempHead->next;
+        tempHead->next=tempHead->next->next;
+        free(del);
+        
+    }
+    else//meaning no such flight with given id exists
+    {
+        printf("flight does not exist!\n");
+    }
+
+
+}
 int main()
 {
     printf("welcome to the flight reservation system\n");
-    // char choice;
-    // do
-    // {
-    // printf("press 1 to book flight tickets\npress 2 to login as admin\npress any other key to exit\n");
-    //  switch(choice){
-    //     case '1':
-       
-    //     showFlights();
-    //     break;
-
-    //     case '2':
-    //     adminLogin();
-    //     break;
-
-    //     default:
-    //     printf("thank you for using our app\n");
-    //     return 1;
-        
-    //  }
-    // } while (1);
- int exitChoice;
+   int choice;
     do
     {
-       
-        printf("press 1 to exit\n");
-        scanf("%d",&exitChoice);
+        printf("Press 1 to view available flights\n");
+        printf("Press 2 to add a new flight\n");
+        printf("Press 3 to Delete Flight\n");
+        printf("Press 4 to exit\n");
+
+        scanf("%d",&choice);
         getchar();
 
-        createFlight();
-        
-    } while (exitChoice!=1);
-    
-   printFlights();
+        switch(choice){
+            case 1:
+                printFlights();
+                break;
+
+            case 2:
+                createFlight();
+                break;
+
+            case 3:
+                int id;printf("enter the unique id of the flight you want to delete\n");
+                scanf("%d",&id);
+                deleteFlights(id);
+                break;
+          
+            case 4:
+                printf("Thank you for using our app\n");
+                return 0;
+
+            default:
+                printf("Invalid choice. Please try again.\n");
+                break;
+        }
+    } while (1);
+ 
 
 
 }
