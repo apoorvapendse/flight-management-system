@@ -1,12 +1,14 @@
 #include<stdio.h>
 #include<stdlib.h>
 #include<string.h>
+
+
 struct Booker{
-int id;
-char name[100];
-float bill;
-int seats;
-};
+    int id;
+    char name[100];
+    float bill;
+    int seats;
+    };
 
 struct Flight{
     char arrivalTime[100];
@@ -31,11 +33,7 @@ void book(struct Booker* customer){
 void createBooker(){
 
 }
-void printDetails(struct Flight *f)
-{
-    printf("start:%s\n",f->startLocation);
-    printf("end:%s\n",f->endLocation);
-}
+
 
 void printFlights(){
      struct Flight* temp = flightHead;
