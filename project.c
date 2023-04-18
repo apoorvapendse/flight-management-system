@@ -9,6 +9,7 @@ struct Booker{
     float bill;
     int seats;
     };
+    //comment by srujan
 
 struct Flight{
     char arrivalTime[100];
@@ -174,7 +175,8 @@ int main()
                 break;
 
             case 3:
-                int id;printf("enter the unique id of the flight you want to delete\n");
+                int id;
+                printf("enter the unique id of the flight you want to delete\n");
                 scanf("%d",&id);
                 deleteFlights(id);
                 break;
