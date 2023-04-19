@@ -5,6 +5,7 @@
 
 
 
+
 struct Flight{
     char arrivalTime[100];
     char departureTime[100];
@@ -27,6 +28,8 @@ void printFlights(){
      struct Flight* temp = flightHead;
     while(temp!=NULL)
     {
+        
+        printf("\n\n---------------------------------------------------\n");
         printf("Flight Priority %d\n",temp->priority);
         printf("Starting Location: %s\n",temp->startLocation);
         printf("End Location: %s\n",temp->endLocation);
@@ -237,6 +240,7 @@ void cancelflight()
 
 void display()
 {
+     printf("\n\n---------------------------------------------------\n");
    stream = begin;
 	while (stream)
 	{
@@ -273,6 +277,7 @@ void savefile()
 	fclose(fpointer);
 }
 void userLogin(){
+     printf("\n\n---------------------------------------------------\n");
     int choice,num=1;
     begin=stream=NULL;
      do{
@@ -308,6 +313,7 @@ void adminLogin(){
    int choice;
     do
     {
+        printf("\n\n---------------------------------------------------\n");
         printf("Press 1 to view available flights\n");
         printf("Press 2 to add a new flight\n");
         printf("Press 3 to Delete Flight\n");
