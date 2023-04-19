@@ -205,7 +205,7 @@ void cancelflight()
 	system("cls");
 	char passport[10];
 	printf("\n\n Enter passport number to delete record?:");
-	fgets(passport,10,stdin);
+	scanf("%s",passport);
 	if (strcmp(begin->passport, passport) == 0)
 	{
 		dummy = begin;
@@ -334,7 +334,7 @@ void adminLogin(){
           
             case 4:
                 printf("Thank you for using our app\n");
-                return 0;
+                return ;
 
             default:
                 printf("Invalid choice. Please try again.\n");
