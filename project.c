@@ -54,9 +54,9 @@ void printFlights(){
         printf("Arrival Time: %s\n", temp->arrivalTime);
         printf("Departure Time: %s\n", temp->departureTime);
         printf("Economy Seat Cost: %f\n", temp-> economyseatCost);
-	 printf(" total Economy Seat Count: %f\n", temp-> totalEconomySeatCount);    
-	 printf("Business Seat Cost: %f\n", temp-> BusinessSeatcost );
-	 printf(" total Business Seat count: %f\n", temp->  totalBusinessSeatsCount );
+	//  printf(" total Economy Seat Count: %f\n", temp-> totalEconomySeatCount);    
+	//  printf("Business Seat Cost: %f\n", temp-> BusinessSeatcost );
+	//  printf(" total Business Seat count: %f\n", temp->  totalBusinessSeatsCount );
         printf("Seats Left: %d\n", temp->seatsLeft);
         
 
