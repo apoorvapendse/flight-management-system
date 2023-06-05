@@ -63,12 +63,21 @@ int bookFlight(int flightID){
     while(temphead->id!=flightID){
         temphead=temphead->next;
     }
+    if(temphead==NULL){
+        printf("no such flight exists\n");
+        return -1;
+    }
     //now i am on the flight whose seat is to be booked
     struct Flight* currFLight = temphead;
     if(currFLight->seatsLeft<=0){
         printf("Sorry all seats all full");
         return -1;
     }
+
+
+
+strcpy(currFLight->users[currFLight->seatIndex].boardingstation,currFLight->startLocation);
+strcpy(currFLight->users[currFLight->seatIndex].destination,currFLight->endLocation);
 
     printf("enter the passport number:");
     scanf("%s",currFLight->users[currFLight->seatIndex].passport);
@@ -218,13 +227,20 @@ void cancelflight()
    
 }
 
-void display(int passportNumber)
+void display(char* passportNumber)
 {
    struct Flight* currentFlight = flightHead;
    while(currentFlight!=NULL){
     for(int i = 0 ; i < currentFlight->totalSeatCount;i++){
         if(currentFlight->users[i].passport){
+            printf("seat number:%d\n",currentFlight->users[i].seat_num);
             
+            
+            printf("boarding station:%s\n",currentFlight->users[i].boardingstation);
+            printf("destination:%s\n",currentFlight->users[i].destination);
+           
+           
+            printf("seat number:%d",currentFlight->users[i].seat_num);
         }
     }
    }
@@ -273,7 +289,11 @@ void userLogin(){
                          break;
                 case 3  :exit(0);
                          break;
-                case 4  :display();
+                case 4  :
+                        printf("enter your passport number\n");
+                        char passport[12];
+                        scanf("%s",passport);
+                        display(passport);
                          break;
                 case 5 : savefile();
                         break;
