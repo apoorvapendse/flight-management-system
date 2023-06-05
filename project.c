@@ -22,9 +22,9 @@ struct Flight{
     char endLocation[100];
     float economyseatCost;
     float BusinessSeatcost;
-    int totalEconomySeatCount;
-    int totalBusinessSeatsCount;
-	int totalSeatCount;	
+    float  totalEconomySeatCount;
+    float  totalBusinessSeatsCount;
+    int totalSeatCount;	
     int seatsLeft;
     int *seatArray;
     int seatIndex;
@@ -111,11 +111,11 @@ void createFlight(){
     printf("Cost per economy  Seat:");
     scanf("%f",&tempFlight-> economyseatCost); 
     printf("\nTotal Economy Seat Count:");
-    scanf("%d",&tempFlight->totalEconomySeatCount);
+    scanf("%f",&tempFlight->totalEconomySeatCount);
     printf("Cost per Business  Seat:");
     scanf("%f",&tempFlight->BusinessSeatcost);
     printf("\nTotal Business Seat Count:");
-    scanf("%d",&tempFlight->totalBusinessSeatsCount);
+    scanf("%f",&tempFlight->totalBusinessSeatsCount);
     printf("\nTotal Seat Count:");
     scanf("%d",&tempFlight->totalSeatCount);
 
@@ -379,5 +379,4 @@ int main()
     }while(true);
 
 }
-
 
