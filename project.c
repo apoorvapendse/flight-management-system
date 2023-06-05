@@ -80,7 +80,7 @@ int bookFlight(int flightID){
     scanf("%s",currFLight->users[currFLight->seatIndex].email);
     
    
-    
+    //
     
     currFLight->seatIndex++;
     currFLight->seatsLeft--;
