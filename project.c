@@ -7,7 +7,7 @@
 
 struct userSchema
 {
-    char passport[10];
+    char passport[12];
     char name[20];
     char boardingstation[20];
     int seat_num;
@@ -218,9 +218,16 @@ void cancelflight()
    
 }
 
-void display()
+void display(int passportNumber)
 {
-   
+   struct Flight* currentFlight = flightHead;
+   while(currentFlight!=NULL){
+    for(int i = 0 ; i < currentFlight->totalSeatCount;i++){
+        if(currentFlight->users[i].passport){
+            
+        }
+    }
+   }
 }
 void savefile()
 {
@@ -246,34 +253,34 @@ void savefile()
 	// fclose(fpointer);
 }
 void userLogin(){
-//      printf("\n\n---------------------------------------------------\n");
-//     int choice,num=1;
-//     begin=stream=NULL;
-//      do{
-//    printf("\nPlease choose an action:\n");
-//                 printf("1. Reserve a flight\n");
-//                 printf("2. Cancel a reservation\n");
-//                 printf("3. Exit\n");
-//                 printf("4.Display records\n");
-//                 printf("5.Save a file\n");
-//                 printf("Your choice: ");
-//                 scanf("%d", &choice);
-//                 switch (choice) { 
+     printf("\n\n---------------------------------------------------\n");
+    int choice,num=1;
+   
+     do{
+   printf("\nPlease choose an action:\n");
+                printf("1. Reserve a flight\n");
+                printf("2. Cancel a reservation\n");
+                printf("3. Exit\n");
+                printf("4.Display records\n");
+                printf("5.Save a file\n");
+                printf("Your choice: ");
+                scanf("%d", &choice);
+                switch (choice) { 
 
-//                case 1 : details();
-//                         break;
-//                 case 2 : cancelflight();
-//                          break;
-//                 case 3  :exit(0);
-//                          break;
-//                 case 4  :display();
-//                          break;
-//                 case 5 : savefile();
-//                         break;
-//                 default: printf("Enter the valid choice.");
-//                         break;
-// }
-// }while (choice!=3);
+               case 1 : details();
+                        break;
+                case 2 : cancelflight();
+                         break;
+                case 3  :exit(0);
+                         break;
+                case 4  :display();
+                         break;
+                case 5 : savefile();
+                        break;
+                default: printf("Enter the valid choice.");
+                        break;
+}
+}while (choice!=3);
 
 }
 void adminLogin(){
