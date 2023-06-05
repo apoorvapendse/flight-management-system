@@ -341,7 +341,15 @@ void userLogin(){
 
 }
 void adminLogin(){
-     printf("Welcome to admin login\n");
+    
+
+     printf("enter password:");
+     char* correctPass = "password";
+     char* checkPass;
+     scanf("%s",checkPass);
+     if(!strcmp(checkPass,correctPass)){
+
+     
    int choice;
     do
     {
@@ -378,7 +386,10 @@ void adminLogin(){
                 break;
         }
     } while (choice!=4);
-
+}else{
+    printf("WRONG PASSWORD!!\n");
+    adminLogin();
+}
 }
 
 
