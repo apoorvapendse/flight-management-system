@@ -12,7 +12,9 @@ struct Flight{
     char startLocation[100];
     char endLocation[100];
     float seatCost;
-    int totalSeats;
+    int totalSeatCount;
+    int *seatArray;
+    int seatIndex;
     struct Booker* passengers;
     struct Flight* next;
     int priority;
@@ -30,17 +32,38 @@ void printFlights(){
     {
         
         printf("\n\n---------------------------------------------------\n");
-        printf("Flight Priority %d\n",temp->priority);
+      
+
+        printf("\n\nFlightID:%d\n",temp->id);
         printf("Starting Location: %s\n",temp->startLocation);
         printf("End Location: %s\n",temp->endLocation);
         printf("Arrival Time: %s\n", temp->arrivalTime);
         printf("Departure Time: %s\n", temp->departureTime);
         printf("Seat Cost: %f\n", temp->seatCost);
-        printf("Total Seat Count: %d\n", temp->totalSeats);
-        printf("unique id: %d\n", temp->id);
+        
 
         temp = temp->next;
     }
+}
+
+int bookFlight(int flightID){
+    struct Flight* temphead = flightHead;
+    while(temphead->id!=flightID){
+        temphead=temphead->next;
+    }
+    //now i am on the flight whose seat is to be booked
+    struct Flight* currFLight = temphead;
+    if(currFLight->seatIndex+1>=currFLight->totalSeatCount){
+        printf("Sorry all seats all full");
+        return -1;
+    }
+
+
+    currFLight->seatIndex++;
+    return currFLight->seatIndex-1;//this will be the index of the seat that got booked right now
+
+
+
 }
 
 void createFlight(){
@@ -58,7 +81,12 @@ void createFlight(){
     printf("Cost per Seat:");
     scanf("%f",&tempFlight->seatCost);
     printf("\nTotal Seat Count:");
-    scanf("%d",&tempFlight->totalSeats);
+    scanf("%d",&tempFlight->totalSeatCount);
+
+    //creating the seat Array 
+    tempFlight->seatArray = (int*)malloc(sizeof(int)*tempFlight->totalSeatCount);
+    tempFlight->seatIndex = 0;
+
     printf("\nUnique ID:");
     scanf("%d",&tempFlight->id);
 
@@ -158,10 +186,14 @@ void details()
 	scanf("%s",stream->name); 
 	printf("\n\t Enter your email address:");
 	scanf("%s",stream->email); 
-    printf("\n\t Enter the Boarding station: ");
-    scanf("%s",stream->boardingstation);
-    printf("\n\t Enter the Destination : ");
-    scanf("%s",stream->destination);
+    printFlights();
+
+    printf("\namong the above displayed flights enter the id of the flight you want to book\n");
+    int flightID;
+    scanf("%d",&flightID);
+   int bookedSeatNumber =  bookFlight(flightID);
+
+
 }
 
 
@@ -340,8 +372,7 @@ void adminLogin(){
           
             case 4:
                 printf("Thank you for using our app\n");
-                return ;
-
+               break;
             default:
                 printf("Invalid choice. Please try again.\n");
                 break;
@@ -376,7 +407,7 @@ int main()
     default:
         printf("\nplease enter valid choice!\n");
         break;
-    }while(true);
+    }
    
 // getch();
     }while(true);
