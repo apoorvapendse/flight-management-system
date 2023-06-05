@@ -5,7 +5,16 @@
 
 
 
-
+struct userSchema
+{
+    char passport[10];
+    char name[20];
+    char boardingstation[20];
+    int seat_num;
+    char email[20];
+    char destination[20];
+    struct userpanel *following ;
+};
 struct Flight{
     char arrivalTime[100];
     char departureTime[100];
@@ -13,12 +22,14 @@ struct Flight{
     char endLocation[100];
     float seatCost;
     int totalSeatCount;
+    int seatsLeft;
     int *seatArray;
     int seatIndex;
     struct Booker* passengers;
     struct Flight* next;
     int priority;
     int id;
+    struct userSchema* users;
 };
 struct Flight* flightHead=NULL;
 int totalFlights = 0;
@@ -40,6 +51,7 @@ void printFlights(){
         printf("Arrival Time: %s\n", temp->arrivalTime);
         printf("Departure Time: %s\n", temp->departureTime);
         printf("Seat Cost: %f\n", temp->seatCost);
+        printf("Seats Left: %d\n", temp->seatsLeft);
         
 
         temp = temp->next;
@@ -53,13 +65,25 @@ int bookFlight(int flightID){
     }
     //now i am on the flight whose seat is to be booked
     struct Flight* currFLight = temphead;
-    if(currFLight->seatIndex+1>=currFLight->totalSeatCount){
+    if(currFLight->seatsLeft<=0){
         printf("Sorry all seats all full");
         return -1;
     }
 
-
+    printf("enter the passport number:");
+    scanf("%s",currFLight->users[currFLight->seatIndex].passport);
+    
+    printf("enter the name:");
+    scanf("%s",currFLight->users[currFLight->seatIndex].name);
+    
+    printf("enter the email:"); 
+    scanf("%s",currFLight->users[currFLight->seatIndex].email);
+    
+   
+    
+    
     currFLight->seatIndex++;
+    currFLight->seatsLeft--;
     return currFLight->seatIndex-1;//this will be the index of the seat that got booked right now
 
 
@@ -86,6 +110,9 @@ void createFlight(){
     //creating the seat Array 
     tempFlight->seatArray = (int*)malloc(sizeof(int)*tempFlight->totalSeatCount);
     tempFlight->seatIndex = 0;
+    tempFlight->seatsLeft = tempFlight->totalSeatCount;
+    tempFlight->users =(struct userSchema*)malloc(sizeof(struct userSchema)*(tempFlight->totalSeatCount));
+
 
     printf("\nUnique ID:");
     scanf("%d",&tempFlight->id);
@@ -167,177 +194,86 @@ void deleteFlights(int uniqueID){
         printf("flight does not exist!\n");
     }
 }
-struct userpanel
-{
-    char passport[10];
-    char name[20];
-    char boardingstation[20];
-    int seat_num;
-    char email[20];
-    char destination[20];
-    struct userpanel *following ;
-}*stream,*begin;
+
 
 void details()
 {
-    printf("\n\t Enter your passport number:");
-	scanf("%s",stream->passport);//reads a line from stdin and stores it into the string pointed
-	printf("\n\t Enter your  name:");
-	scanf("%s",stream->name); 
-	printf("\n\t Enter your email address:");
-	scanf("%s",stream->email); 
-    printFlights();
-
+    
+printFlights();
     printf("\namong the above displayed flights enter the id of the flight you want to book\n");
     int flightID;
     scanf("%d",&flightID);
    int bookedSeatNumber =  bookFlight(flightID);
-
+    printf("\nCongratulations Your Flight is Booked!\nYour Seat Number is:%d\n\n\n",bookedSeatNumber);
+    
 
 }
 
 
 
-void reserveflight(int x)
-{
-	stream = begin;
-	if (begin == NULL)
-	{
-		// first user
-		begin = stream = (struct userpanel*)malloc(sizeof(struct userpanel));
-		details();
-		stream->following = NULL;
-		printf("\n\t Seat booking successful!");
-		printf("\n\t your seat number is: Seat A-%d", x);
-		stream->seat_num = x;
-		return;
-	}
-	else if (x > 50) // FULL SEATS
-	{
-		printf("\n\t\t Seat Full.");
-		return;
-	}
-	else
-	{
-		// next user
-		while (stream->following)
-			stream = stream->following;
-		stream->following = (struct userpanel *)malloc(sizeof(struct userpanel));
-		stream = stream->following;
-		details();
-		stream->following = NULL;
-		printf("\n\t Seat booking succesful!");
-		printf("\n\t your seat number is: Seat A-%d", x);
-		stream->seat_num = x;
-		return;
-	}
-} 
+
 
 void cancelflight()
 {
-    struct userpanel *dummy;
-	stream = begin;
-	system("cls");
-	char passport[10];
-	printf("\n\n Enter passport number to delete record?:");
-	scanf("%s",passport);
-	if (strcmp(begin->passport, passport) == 0)
-	{
-		dummy = begin;
-		begin = begin->following;
-		free(dummy);
-		printf(" booking has been deleted");
-		
-		return;
-
-	}
-
-	while (stream->following)
-	{
-		if (strcmp(stream->following->passport, passport) == 0)
-		{
-			dummy = stream->following;
-			stream->following = stream->following->following;
-			free(dummy);
-			printf("has been deleted ");
-			// getch();
-			// Sleep(800);
-			return;
-		}
-		stream = stream->following;
-	}
-	printf("passport number is wrong please check your passport");
-
+   
 }
 
 void display()
 {
-     printf("\n\n---------------------------------------------------\n");
-   stream = begin;
-	while (stream)
-	{
-		printf("\n\n Passport Number : %-20s", stream->passport);
-		printf("\n         name : %-20s", stream->name);
-		printf("\n      email address: %-20s", stream->email);
-		printf("\n      Seat number: A-%d", stream->seat_num);
-		printf("\n     Boarding station:%-20s",stream->boardingstation);
-        printf("\n     Destination:%-20s", stream->destination);
-		stream = stream->following;
-	}
+   
 }
 void savefile()
 {
-	FILE *fpointer = fopen("user panel records", "w");
-	if (!fpointer)
-	{
-		printf("\n Error in opening file!");
-		return;
-		// Sleep(800);
-	}
-	stream = begin;
-	while (stream)
-	{
-		fprintf(fpointer, "%-10s", stream->passport);
-		fprintf(fpointer, "%-20s", stream->name);
-		fprintf(fpointer, "%-20s", stream->email);
-        fprintf(fpointer,"%-20s",stream->boardingstation);
-        fprintf(fpointer, "%-20s", stream->destination);
-        fprintf(fpointer, "\n");
-		stream = stream->following;
-	}
-	printf("\n\n\t Details have been saved to a file (user panel records)");
-	fclose(fpointer);
+	// FILE *fpointer = fopen("user panel records", "w");
+	// if (!fpointer)
+	// {
+	// 	printf("\n Error in opening file!");
+	// 	return;
+	// 	// Sleep(800);
+	// }
+	// stream = begin;  
+	// while (stream)
+	// {
+	// 	fprintf(fpointer, "%-10s", stream->passport);
+	// 	fprintf(fpointer, "%-20s", stream->name);
+	// 	fprintf(fpointer, "%-20s", stream->email);
+    //     fprintf(fpointer,"%-20s",stream->boardingstation);
+    //     fprintf(fpointer, "%-20s", stream->destination);
+    //     fprintf(fpointer, "\n");
+	// 	stream = stream->following;
+	// }
+	// printf("\n\n\t Details have been saved to a file (user panel records)");
+	// fclose(fpointer);
 }
 void userLogin(){
-     printf("\n\n---------------------------------------------------\n");
-    int choice,num=1;
-    begin=stream=NULL;
-     do{
-   printf("\nPlease choose an action:\n");
-                printf("1. Reserve a flight\n");
-                printf("2. Cancel a reservation\n");
-                printf("3. Exit\n");
-                printf("4.Display records\n");
-                printf("5.Save a file\n");
-                printf("Your choice: ");
-                scanf("%d", &choice);
-                switch (choice) { 
+//      printf("\n\n---------------------------------------------------\n");
+//     int choice,num=1;
+//     begin=stream=NULL;
+//      do{
+//    printf("\nPlease choose an action:\n");
+//                 printf("1. Reserve a flight\n");
+//                 printf("2. Cancel a reservation\n");
+//                 printf("3. Exit\n");
+//                 printf("4.Display records\n");
+//                 printf("5.Save a file\n");
+//                 printf("Your choice: ");
+//                 scanf("%d", &choice);
+//                 switch (choice) { 
 
-               case 1 : reserveflight(num);
-                        num++;
-                        break;
-                case 2 : cancelflight();
-                         break;
-                case 3  :exit(0);
-                         break;
-                case 4  :display();
-                         break;
-                case 5 : savefile();
-                        break;
-                default: printf("Enter the valid choice.");
-                        break;
-}
-}while (choice!=3);
+//                case 1 : details();
+//                         break;
+//                 case 2 : cancelflight();
+//                          break;
+//                 case 3  :exit(0);
+//                          break;
+//                 case 4  :display();
+//                          break;
+//                 case 5 : savefile();
+//                         break;
+//                 default: printf("Enter the valid choice.");
+//                         break;
+// }
+// }while (choice!=3);
 
 }
 void adminLogin(){
@@ -371,13 +307,13 @@ void adminLogin(){
                 break;
           
             case 4:
-                printf("Thank you for using our app\n");
+                printf("Exiting admin login...\n\n\n");
                break;
             default:
                 printf("Invalid choice. Please try again.\n");
                 break;
         }
-    } while (1);
+    } while (choice!=4);
 
 }
 
@@ -401,6 +337,7 @@ int main()
         break;
     case 2:
         adminLogin();
+        break;
     case 3:
         return  0;
     
