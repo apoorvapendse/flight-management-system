@@ -23,7 +23,8 @@ struct Flight{
     float economyseatCost;
     float BusinessSeatcost;
     int totalEconomySeatCount;
-    int totalBusinessSeatsCount;	
+    int totalBusinessSeatsCount;
+	int totalSeatCount;	
     int seatsLeft;
     int *seatArray;
     int seatIndex;
