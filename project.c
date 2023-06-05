@@ -284,31 +284,6 @@ void userLogin(){
 
 }
 void adminLogin(){
-bool flag = false;
-
-char pass[100];
-
-char name[20];
-
-char save_name[20] = "admin";
-
-char save_pass[100] = "password";
-
-ask_again_pass:
-
-printf("Enetr the Name -> ");
-
-gets(name); printf("\n");
-
-printf("Enetr the PASSWORD -> \n");
-
-gets(pass);
-
-if (strcmp(pass, save_pass) == 0 && strcmp(name, save_name) == 0)
-
-{
-
-system("cls");
      printf("Welcome to admin login\n");
    int choice;
     do
