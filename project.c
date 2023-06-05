@@ -7,7 +7,7 @@
 
 struct userSchema
 {
-    char passport[12];
+    int passport;
     char name[20];
     char boardingstation[20];
     int seat_num;
@@ -71,7 +71,7 @@ int bookFlight(int flightID){
     }
 
     printf("enter the passport number:");
-    scanf("%s",currFLight->users[currFLight->seatIndex].passport);
+    scanf("%d",&currFLight->users[currFLight->seatIndex].passport);
     
     printf("enter the name:");
     scanf("%s",currFLight->users[currFLight->seatIndex].name);
@@ -173,6 +173,7 @@ void deleteFlights(int uniqueID){
         struct Flight* del = tempHead;
         tempHead=tempHead->next;
         flightHead=tempHead;
+        flightHead=tempHead;
         free(del);
         return;
     }
@@ -220,13 +221,26 @@ void cancelflight()
 
 void display(int passportNumber)
 {
+    
    struct Flight* currentFlight = flightHead;
+  
+
+  printf("YOUR BOOKED FLIGHTS:\n");
    while(currentFlight!=NULL){
     for(int i = 0 ; i < currentFlight->totalSeatCount;i++){
-        if(currentFlight->users[i].passport){
-            
+       
+       
+        if(currentFlight->users[i].passport ==passportNumber){
+           
+            printf("\n=======================================================\n");
+            printf("Starting location:%s\n",currentFlight->startLocation);
+            printf("Destination:%s\n",currentFlight->endLocation);
+            printf("Your seat no:%d",currentFlight->users[i].seat_num);
+            printf("\n=======================================================\n");
+
         }
     }
+    currentFlight=currentFlight->next;
    }
 }
 void savefile()
@@ -273,7 +287,12 @@ void userLogin(){
                          break;
                 case 3  :exit(0);
                          break;
-                case 4  :display();
+
+                case 4  :
+                int passportNumber;
+                printf("enter your passport number:");
+                scanf("%d",&passportNumber);
+                display(passportNumber);
                          break;
                 case 5 : savefile();
                         break;
