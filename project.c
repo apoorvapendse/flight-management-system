@@ -214,10 +214,7 @@ printFlights();
 
 
 
-void cancelflight()
-{
-   
-}
+
 
 void display(int passportNumber)
 {
@@ -243,6 +240,46 @@ void display(int passportNumber)
     currentFlight=currentFlight->next;
    }
 }
+
+void cancelflight()
+{
+  printf("enter your passport number\n");
+  int passportnumber;
+  scanf("%d",&passportnumber);
+  display(passportnumber);
+
+  printf("ENTER THE STARTING LOCATION OF THE FLIGHT YOU WANT TO CANCEL:");
+  char* startingLocation;
+  scanf("%s",startingLocation);
+
+  printf("ENTER THE ENDING LOCATION OF THE FLIGHT YOU WANT TO CANCEL:");
+  char* endingLocation;
+  scanf("%s",endingLocation);
+
+  struct Flight* currentFlight = flightHead;
+  
+
+
+   while(currentFlight!=NULL){
+    for(int i = 0 ; i < currentFlight->totalSeatCount;i++){
+       
+       
+        if(currentFlight->startLocation ==startingLocation && currentFlight->endLocation==endingLocation && currentFlight->users[i].passport==passportnumber ){
+           //means we found the flight to be deleted
+           currentFlight->users[i].passport == 0;
+           return;
+
+        }
+    }
+    currentFlight=currentFlight->next;
+   }
+
+
+   
+}
+
+
+
 void savefile()
 {
 	// FILE *fpointer = fopen("user panel records", "w");
@@ -286,6 +323,7 @@ void userLogin(){
                 case 2 : cancelflight();
                          break;
                 case 3  :exit(0);
+
                          break;
 
                 case 4  :
