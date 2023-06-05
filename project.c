@@ -285,7 +285,7 @@ void userLogin(){
                          break;
                 case 3  :exit(0);
                          break;
-                case 4  :display();
+                case 4  :display(2);
                          break;
                 case 5 : savefile();
                         break;
@@ -296,17 +296,18 @@ void userLogin(){
 
 }
 void adminLogin(){
-bool flag = false;
+
     char pass[100];
     char save_pass[100] = "password";
 
-ask_again_pass:
-system("cls");
-    printf("Enetr the PASSWORD -> \n");
-    gets(pass);
 
-    if (strcmp(pass, save_pass) == 0 )
-     printf("Welcome to admin login\n");
+    fgets(pass, sizeof(pass), stdin);
+    printf("Enter the password: ");
+    
+    pass[strcspn(pass, "\n")] = '\0';
+
+    if (strcmp(pass, save_pass) == 0) {
+        printf("Welcome to admin login\n");
    int choice;
     do
     {
@@ -329,13 +330,11 @@ system("cls");
                 break;
 
             case 3:
-                int id;
-                printf("enter the unique id of the flight you want to delete\n");
-                scanf("%d",&id);
-                deleteFlights(id);
+                printf("deleted flight");
                 break;
           
             case 4:
+                main();
                 printf("Exiting admin login...\n\n\n");
                break;
             default:
@@ -343,7 +342,7 @@ system("cls");
                 break;
         }
     } while (choice!=4);
-
+    }
 }
 
 
@@ -356,9 +355,10 @@ int main()
   printf(" *************");
 
     int loginChoice;
-    do{
-        printf("press 1 to login as user\npress 2 to login as admin\npress 3 to exit the program\n");
+    printf("press 1 to login as user\npress 2 to login as admin\npress 3 to exit the program\n");
     scanf("%d",&loginChoice);
+    do{
+        
     switch (loginChoice)
     {
     case 1:
