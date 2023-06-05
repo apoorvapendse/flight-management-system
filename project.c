@@ -3,7 +3,7 @@
 #include<string.h>
 #include<stdbool.h>
 
-
+//tp comment
 
 struct userSchema
 {
@@ -20,8 +20,11 @@ struct Flight{
     char departureTime[100];
     char startLocation[100];
     char endLocation[100];
-    float seatCost;
-    int totalSeatCount;
+    float economyseatCost;
+    float BusinessSeatcost;
+    int totalEconomySeatCount;
+    int totalBusinessSeatsCount;
+	int totalSeatCount;	
     int seatsLeft;
     int *seatArray;
     int seatIndex;
@@ -50,7 +53,10 @@ void printFlights(){
         printf("End Location: %s\n",temp->endLocation);
         printf("Arrival Time: %s\n", temp->arrivalTime);
         printf("Departure Time: %s\n", temp->departureTime);
-        printf("Seat Cost: %f\n", temp->seatCost);
+        printf("Economy Seat Cost: %f\n", temp-> economyseatCost);
+	 printf(" total Economy Seat Count: %f\n", temp-> totalEconomySeatCount);    
+	 printf("Business Seat Cost: %f\n", temp-> BusinessSeatcost );
+	 printf(" total Business Seat count: %f\n", temp->  totalBusinessSeatsCount );
         printf("Seats Left: %d\n", temp->seatsLeft);
         
 
@@ -111,8 +117,14 @@ void createFlight(){
     fgets(tempFlight->arrivalTime,100,stdin);
     printf("Departure Time:");
     fgets(tempFlight->departureTime,100,stdin);
-    printf("Cost per Seat:");
-    scanf("%f",&tempFlight->seatCost);
+    printf("Cost per economy  Seat:");
+    scanf("%f",&tempFlight-> economyseatCost); 
+    printf("\nTotal Economy Seat Count:");
+    scanf("%d",&tempFlight->totalEconomySeatCount);
+    printf("Cost per Business  Seat:");
+    scanf("%f",&tempFlight->BusinessSeatcost);
+    printf("\nTotal Business Seat Count:");
+    scanf("%d",&tempFlight->totalBusinessSeatsCount);
     printf("\nTotal Seat Count:");
     scanf("%d",&tempFlight->totalSeatCount);
 
@@ -304,6 +316,16 @@ void userLogin(){
 
 }
 void adminLogin(){
+bool flag = false;
+    char pass[100];
+    char save_pass[100] = "password";
+
+ask_again_pass:
+system("cls");
+    printf("Enetr the PASSWORD -> \n");
+    gets(pass);
+
+    if (strcmp(pass, save_pass) == 0 )
      printf("Welcome to admin login\n");
    int choice;
     do
