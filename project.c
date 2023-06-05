@@ -23,7 +23,7 @@ struct Flight{
     float seatCost;
     int totalSeatCount;
     int seatsLeft;
-    int *seatArray;
+    
     int seatIndex;
     struct Booker* passengers;
     struct Flight* next;
@@ -108,7 +108,7 @@ void createFlight(){
     scanf("%d",&tempFlight->totalSeatCount);
 
     //creating the seat Array 
-    tempFlight->seatArray = (int*)malloc(sizeof(int)*tempFlight->totalSeatCount);
+  
     tempFlight->seatIndex = 0;
     tempFlight->seatsLeft = tempFlight->totalSeatCount;
     tempFlight->users =(struct userSchema*)malloc(sizeof(struct userSchema)*(tempFlight->totalSeatCount));
@@ -142,6 +142,7 @@ void createFlight(){
                 tempHead = tempHead->next;
                 
             }
+            //we are on the last flight
             if(tempHead->next==NULL)
             {  
                 tempHead->next = tempFlight;
@@ -280,29 +281,7 @@ void cancelflight()
 
 
 
-void savefile()
-{
-	// FILE *fpointer = fopen("user panel records", "w");
-	// if (!fpointer)
-	// {
-	// 	printf("\n Error in opening file!");
-	// 	return;
-	// 	// Sleep(800);
-	// }
-	// stream = begin;  
-	// while (stream)
-	// {
-	// 	fprintf(fpointer, "%-10s", stream->passport);
-	// 	fprintf(fpointer, "%-20s", stream->name);
-	// 	fprintf(fpointer, "%-20s", stream->email);
-    //     fprintf(fpointer,"%-20s",stream->boardingstation);
-    //     fprintf(fpointer, "%-20s", stream->destination);
-    //     fprintf(fpointer, "\n");
-	// 	stream = stream->following;
-	// }
-	// printf("\n\n\t Details have been saved to a file (user panel records)");
-	// fclose(fpointer);
-}
+
 void userLogin(){
      printf("\n\n---------------------------------------------------\n");
     int choice,num=1;
