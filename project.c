@@ -304,9 +304,7 @@ void userLogin(){
                         break;
                 case 2 : cancelflight();
                          break;
-                case 3  :exit(0);
-
-                         break;
+                case 3  :main();
 
                 case 4  :
                 int passportNumber;
