@@ -292,7 +292,6 @@ void userLogin(){
                 printf("2. Cancel a reservation\n");
                 printf("3. Exit\n");
                 printf("4.Display records\n");
-                printf("5.Save a file\n");
                 printf("Your choice: ");
                 scanf("%d", &choice);
                 switch (choice) { 
@@ -311,8 +310,7 @@ void userLogin(){
                 scanf("%d",&passportNumber);
                 display(passportNumber);
                          break;
-                case 5 : savefile();
-                        break;
+               
                 default: printf("Enter the valid choice.");
                         break;
 }
