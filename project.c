@@ -163,7 +163,10 @@ void createFlight(){
 
 }
 
-void deleteFlights(int uniqueID){
+void deleteFlights(){
+    int uniqueID;
+                printf("enter the unique id of the flight you want to delete\n");
+                scanf("%d",&uniqueID);
     struct Flight* tempHead = flightHead;
     if(tempHead==NULL){
         printf("Cannot delete, no flights are scheduled!\n");
@@ -350,10 +353,8 @@ void adminLogin(){
                 break;
 
             case 3:
-                int id;
-                printf("enter the unique id of the flight you want to delete\n");
-                scanf("%d",&id);
-                deleteFlights(id);
+                
+                deleteFlights();
                 break;
           
             case 4:
