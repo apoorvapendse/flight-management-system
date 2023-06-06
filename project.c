@@ -223,7 +223,7 @@ void display(int passportNumber)
    struct Flight* currentFlight = flightHead;
   
 
-  printf("YOUR BOOKED FLIGHTS:\n");
+  printf("YOUR BOOKED FLIGHTS:\n\n");
    while(currentFlight!=NULL){
     for(int i = 0 ; i < currentFlight->totalSeatCount;i++){
        
@@ -233,7 +233,8 @@ void display(int passportNumber)
             printf("\n=======================================================\n");
             printf("Starting location:%s\n",currentFlight->startLocation);
             printf("Destination:%s\n",currentFlight->endLocation);
-            printf("Your seat no:%d",currentFlight->users[i].seat_num);
+            printf("Your seat no:%d\n",currentFlight->users[i].seat_num);
+            printf("Flight ID:%d",currentFlight->id);
             printf("\n=======================================================\n");
 
         }
@@ -249,13 +250,10 @@ void cancelflight()
   scanf("%d",&passportnumber);
   display(passportnumber);
 
-  printf("ENTER THE STARTING LOCATION OF THE FLIGHT YOU WANT TO CANCEL:");
-  char* startingLocation;
-  scanf("%s",startingLocation);
+  printf("ENTER THE FLIGHT ID:");
+  int flightID;
+  scanf("%d",&flightID);
 
-  printf("ENTER THE ENDING LOCATION OF THE FLIGHT YOU WANT TO CANCEL:");
-  char* endingLocation;
-  scanf("%s",endingLocation);
 
   struct Flight* currentFlight = flightHead;
   
@@ -263,11 +261,14 @@ void cancelflight()
 
    while(currentFlight!=NULL){
     for(int i = 0 ; i < currentFlight->totalSeatCount;i++){
+      
        
-       
-        if(currentFlight->startLocation ==startingLocation && currentFlight->endLocation==endingLocation && currentFlight->users[i].passport==passportnumber ){
+        if(currentFlight->id==flightID && currentFlight->users[i].passport==passportnumber ){
            //means we found the flight to be deleted
-           currentFlight->users[i].passport == 0;
+           
+           printf("found the seat to be cancelled\n");
+           currentFlight->users[i].passport = 0;
+           printf("seat cancelled successfully");
            return;
 
         }
