@@ -304,7 +304,8 @@ void userLogin(){
                         break;
                 case 2 : cancelflight();
                          break;
-                case 3  :main();
+                case 3  :
+break;
 
                 case 4  :
                 int passportNumber;
@@ -372,11 +373,11 @@ void adminLogin(){
 
 int main()
 {
-  printf(" *************\n");
-  printf(" *************\n");
-  printf(" *      WELCOME TO VIT AIRWAY      *\n");
-  printf(" *************\n");
   printf(" *************");
+  printf(" *************");
+  printf(" \n*      WELCOME TO VIT AIRWAY      *\n");
+  printf(" *************");
+  printf(" *************\n");
 
     int loginChoice;
     do{
