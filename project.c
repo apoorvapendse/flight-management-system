@@ -17,6 +17,7 @@ struct userSchema
 };
 struct Flight{
     char arrivalTime[100];
+    
     char departureTime[100];
     char startLocation[100];
     char endLocation[100];
